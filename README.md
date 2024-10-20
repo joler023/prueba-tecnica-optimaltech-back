@@ -29,10 +29,10 @@ Antes de empezar, asegúrate de tener instalado lo siguiente en tu entorno de de
 
 El proyecto está organizado de la siguiente manera:
 
-- **src/**: Contiene el código fuente de la API.
-  - **controllers/**: Aquí se definen los controladores que manejan las solicitudes HTTP.
-  - **services/**: Contiene la lógica de negocio de la aplicación.
-  - **models/**: Define los modelos o esquemas de datos.
+- **src/**: Contiene el código fuente de la API. El proyecto se divide en los siguientes apartados
+  - **controllers**: Son archivos donde se definen los endpoints que manejan las solicitudes HTTP.
+  - **services**: Estos archivos contiene la lógica de negocio de la aplicación.
+  - **modules**: Orquestan la interacción entre servicios, controladores y otros modulos vecinos.
   - **dto/**: Incluye los objetos de transferencia de datos para validar y transformar las solicitudes.
   
 ## **Ejecutar la aplicación**
