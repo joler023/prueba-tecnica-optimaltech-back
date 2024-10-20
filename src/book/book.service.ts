@@ -13,7 +13,7 @@ export class BookService {
     });
   }
 
-  findAll({ title, createdAt }: { title?: string, createdAt?: string }) {
+  findAll({ title, createdAt }: { title?: string; createdAt?: string }) {
     return this.prisma.book.findMany({
       where: {
         title: {
@@ -21,19 +21,18 @@ export class BookService {
         },
         ...(createdAt && {
           createdAt: {
-            
             gte: new Date(createdAt),
-
           },
-        })
+        }),
       },
     });
   }
 
-  findOne(id: number) {
+  findOne({ id, title }: { id?: number; title?: string }) {
     return this.prisma.book.findFirst({
       where: {
-        id,
+        ...(id && { id }),
+        ...(title && { title }),
       },
     });
   }

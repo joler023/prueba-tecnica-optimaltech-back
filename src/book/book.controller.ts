@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  ConflictException,
+  NotFoundException,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -23,8 +25,14 @@ export class BookController {
     description: 'Creates a new book with the provided title',
   })
   @Post('create')
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.bookService.create(createBookDto);
+  async create(@Body() createBookDto: CreateBookDto) {
+    const alreadyExists = await this.bookService.findOne({
+      title: createBookDto.title,
+    });
+
+    if (alreadyExists) throw new ConflictException('El Libro ya existe');
+
+    return await this.bookService.create(createBookDto);
   }
 
   @ApiOperation({
@@ -44,7 +52,10 @@ export class BookController {
     description: 'Filter by creation date',
   })
   @Get('all')
-  findAll(@Query('title') title?: string, @Query('createdAt') createdAt?: string) {
+  findAll(
+    @Query('title') title?: string,
+    @Query('createdAt') createdAt?: string,
+  ) {
     return this.bookService.findAll({ title, createdAt });
   }
 
@@ -54,7 +65,7 @@ export class BookController {
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.bookService.findOne(+id);
+    return this.bookService.findOne({ id: +id });
   }
 
   @ApiOperation({
@@ -62,8 +73,12 @@ export class BookController {
     description: 'Updates a book with the provided ID',
   })
   @Patch('update/:id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.bookService.update(+id, updateBookDto);
+  async update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
+    const book = await this.bookService.findOne({ id: +id });
+
+    if (!book) throw new NotFoundException('No se encontró el libro');
+
+    return await this.bookService.update(+id, updateBookDto);
   }
 
   @ApiOperation({
@@ -71,7 +86,11 @@ export class BookController {
     description: 'Removes a book with the provided ID',
   })
   @Delete('remove/:id')
-  remove(@Param('id') id: string) {
-    return this.bookService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const book = await this.bookService.findOne({ id: +id });
+
+    if (!book) throw new NotFoundException('No se encontró el libro');
+
+    return await this.bookService.remove(+id);
   }
 }
