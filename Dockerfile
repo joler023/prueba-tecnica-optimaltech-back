@@ -28,9 +28,6 @@ WORKDIR /app
 # Copiar los archivos de definición de paquetes al directorio de trabajo
 COPY package*.json ./
 
-# Copiar el archivo de variables de entorno
-# COPY .env ./
-
 # Instalar solo las dependencias de producción
 RUN npm install --omit=dev
 
