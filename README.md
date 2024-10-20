@@ -58,6 +58,7 @@ El proyecto está organizado de la siguiente manera:
    ```
 
    - La aplicación estará disponible en el puerto configurado, por defecto `http://localhost:3000`.
+   - De la misma manera, su documentacion interna en OpenAPI Swagger estara en la url `http://localhost:3000/api`
 
 ## **EndPoints disponibles**
 
