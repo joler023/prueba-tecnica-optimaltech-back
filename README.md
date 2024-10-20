@@ -1,73 +1,108 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# **Prueba Técnica Optimal Tech API**
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta API, desarrollada con el framework **NestJS**, proporciona un conjunto de operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar una colección de libros. Es parte de un sistema completo que incluye un frontend y backend que trabajan en conjunto para ofrecer una plataforma de administración de libros.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## **Requisitos previos**
 
-## Description
+Antes de empezar, asegúrate de tener instalado lo siguiente en tu entorno de desarrollo:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Node.js** (versión mínima recomendada: 20.x o superior)
 
-## Installation
+## **Instalación**
 
-```bash
-$ npm install
-```
+1. Clona el repositorio del proyecto.
+   ```bash
+   git clone https://github.com/joler023/prueba-tecnica-optimaltech-back
+   ```
 
-## Running the app
+2. Navega al directorio del proyecto.
+   ```bash
+   cd prueba-tecnica-optimaltech-back
+   ```
 
-```bash
-# development
-$ npm run start
+3. Instala las dependencias usando `npm`:
+   ```bash
+   npm install
+   ```
 
-# watch mode
-$ npm run start:dev
+## **Estructura del proyecto**
 
-# production mode
-$ npm run start:prod
-```
+El proyecto está organizado de la siguiente manera:
 
-## Test
+- **src/**: Contiene el código fuente de la API.
+  - **controllers/**: Aquí se definen los controladores que manejan las solicitudes HTTP.
+  - **services/**: Contiene la lógica de negocio de la aplicación.
+  - **models/**: Define los modelos o esquemas de datos.
+  - **dto/**: Incluye los objetos de transferencia de datos para validar y transformar las solicitudes.
+  
+## **Ejecutar la aplicación**
 
-```bash
-# unit tests
-$ npm run test
+### Entorno de desarrollo:
 
-# e2e tests
-$ npm run test:e2e
+1. Para iniciar el servidor en modo de desarrollo (con recarga en caliente):
+   ```bash
+   npm run start:dev
+   ```
+   - La API estará disponible en `http://localhost:3000`.
 
-# test coverage
-$ npm run test:cov
-```
+### Producción:
 
-## Support
+1. Para crear una compilación optimizada para producción:
+   ```bash
+   npm run build
+   ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+2. Luego, ejecuta el servidor en modo de producción:
+   ```bash
+   npm run start:prod
+   ```
 
-## Stay in touch
+   - La aplicación estará disponible en el puerto configurado, por defecto `http://localhost:3000`.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## **EndPoints disponibles**
 
-## License
+### 1. **Obtener todos los libros**  
+   **GET** `/book/all`  
+   Retorna una lista de todos los libros almacenados.
 
-Nest is [MIT licensed](LICENSE).
+### 2. **Crear un libro**  
+   **POST** `/book/create`  
+   Crea un nuevo libro con el siguiente cuerpo en JSON:
+   ```json
+   {
+     "title": "Título del libro"
+   }
+   ```
+
+### 3. **Actualizar un libro**  
+   **PATCH** `/book/update/:id`  
+   Actualiza un libro existente basado en su `id`, proporcionando un título actualizado en el cuerpo de la solicitud:
+   ```json
+   {
+     "title": "Nuevo título"
+   }
+   ```
+
+### 4. **Eliminar un libro**  
+   **DELETE** `/book/remove/:id`  
+   Elimina un libro basado en su `id`.
+
+
+## **Deploy en producción**
+
+Una vez que el build esté listo, puedes desplegar esta API en cualquier servicio compatible con Node.js (como **Heroku**, **AWS**, **DigitalOcean**, **Vercel**, etc.).
+
+1. Construir el proyecto:
+   ```bash
+   npm run build
+   ```
+
+2. Ejecutar el proyecto en producción:
+   ```bash
+   npm run start:prod
+   ```
+
+## **Consideraciones de seguridad**
+
+- Asegúrate de que las variables de entorno (como credenciales de bases de datos) estén correctamente configuradas en archivos `.env` o en el sistema de producción que utilices.
+- Si la API estará expuesta al público, asegúrate de implementar mecanismos de autenticación y autorización.
